@@ -4,6 +4,9 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import CssBaseline from '@mui/material/CssBaseline';
 import { createTheme } from '@mui/material/styles';
+import { NavLink } from 'react-router-dom';
+import Link from '@mui/material/Link';
+import Button from '@mui/material/Button';
 
 const theme = createTheme();
 
@@ -20,11 +23,53 @@ const Header = () => {
         }}
       >
         <Toolbar>
-          {/* h6 = type of element, color = use what is established from parent, 
-          noWrap = element of flexbox that stops text from wrapping */}
-          <Typography variant="h6" color="inherit" noWrap>
+          <Typography 
+            variant="h6" 
+            color="inherit" 
+            noWrap
+            sx={{
+              flexGrow: 1,
+            }}
+          >
             Gran Turismo Tuning Sheets
           </Typography>
+          <nav>
+						<Link
+							color="textPrimary"
+							href="#"
+							sx={{
+                margin: theme.spacing(1, 1.5),
+              }}
+							component={NavLink}
+							to="/register"
+						>
+							Register
+						</Link>
+					</nav>
+					<Button
+						href="#"
+						color="primary"
+						variant="outlined"
+						sx={{
+              margin: theme.spacing(1, 1.5),
+            }}
+						component={NavLink}
+						to="/login"
+					>
+						Login
+					</Button>
+					<Button
+						href="#"
+						color="primary"
+						variant="outlined"
+						sx={{
+              margin: theme.spacing(1, 1.5),
+            }}
+						component={NavLink}
+						to="/logout"
+					>
+						Logout
+					</Button>
         </Toolbar>
       </AppBar>
     </React.Fragment>

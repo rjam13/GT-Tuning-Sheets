@@ -76,6 +76,7 @@ INSTALLED_APPS = [
     'users',
     'rest_framework',
     'corsheaders', # allows other hosts to access our apis
+    'rest_framework_simplejwt.token_blacklist',
 ]
 
 MIDDLEWARE = [

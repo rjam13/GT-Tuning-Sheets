@@ -5,7 +5,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from blog.models import TuningSheet
 from .serializers import TuningSheetSerializer
-from rest_framework.permissions import DjangoModelPermissionsOrAnonReadOnly, BasePermission, SAFE_METHODS
+from rest_framework.permissions import DjangoModelPermissionsOrAnonReadOnly, BasePermission, SAFE_METHODS, IsAuthenticated
 
 class SheetUserWritePermission(BasePermission):
     message = 'Editing tuning sheets is restricted to the author only.'
@@ -20,7 +20,7 @@ class SheetUserWritePermission(BasePermission):
         return obj.author == request.user
 
 class TuningSheetList(generics.ListCreateAPIView):
-    permission_classes = [DjangoModelPermissionsOrAnonReadOnly]
+    permission_classes = [IsAuthenticated]
     # accesses the manager within post so that we can retrieve all the published posts
     queryset = TuningSheet.tuningsheetobjects.all()
     serializer_class = TuningSheetSerializer
