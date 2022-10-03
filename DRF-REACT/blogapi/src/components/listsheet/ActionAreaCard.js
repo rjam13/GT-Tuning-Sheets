@@ -7,7 +7,7 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { CardActionArea } from '@mui/material';
 
-export default function ActionAreaCard({ title, body }) {
+export default function ActionAreaCard({ title, body, imageURL }) {
   const navigate = useNavigate();
   return (
     <Card sx={{ maxWidth: 345 }}>
@@ -16,7 +16,7 @@ export default function ActionAreaCard({ title, body }) {
           component="img"
           height="140"
 					title="Image title"
-          image="https://source.unsplash.com/random"
+          image={imageURL}
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">

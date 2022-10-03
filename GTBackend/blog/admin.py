@@ -8,6 +8,8 @@ class TuningSheetAdmin(admin.ModelAdmin):
       'title', 
       'author',
       'car', 
+      'image_tag',
+      'photo',
       'performance_points',
       'slug', 
       'status',)

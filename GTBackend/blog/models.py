@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
+from django.utils.text import slugify
+from django.utils.safestring import mark_safe
 
 class Car(models.Model):
     manufacturer = models.CharField(max_length=100)
@@ -24,9 +26,11 @@ class TuningSheet(models.Model):
     car = models.ForeignKey(
         Car, on_delete=models.PROTECT, default=1)
     title = models.CharField(max_length=250)
+    photo = models.ImageField(upload_to='car_photos', null=True, blank=True)
+    # upload_to tells django to store the picture in car_photos under the media directory
     excerpt = models.TextField(null=True)
+    slug = models.SlugField(max_length=250, unique_for_date="published", blank=True)
     # used for URLs
-    slug = models.SlugField(max_length=250, unique_for_date="published")
     published = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name='tuning_sheets'
@@ -140,3 +144,10 @@ class TuningSheet(models.Model):
     
     def __str__(self):
         return self.title
+
+    def image_tag(self): # new
+        return mark_safe('<img src="/../../media/%s" width="160" height="90" />' % (self.photo))
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.title)
+        super(TuningSheet, self).save(*args, **kwargs)

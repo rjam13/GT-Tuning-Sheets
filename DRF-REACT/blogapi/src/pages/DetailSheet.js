@@ -1,5 +1,6 @@
 import React, { useEffect, useState} from 'react';
 import Values from '../components/detailsheet/Values';
+import backendURL from '../backendURL';
 
 const DetailSheet = () => {
   const [appState, setAppState] = useState({
@@ -9,7 +10,7 @@ const DetailSheet = () => {
 
   useEffect(() => {
     setAppState({ loading: true });
-    const apiUrl = `http://127.0.0.1:8000/api/1/`;
+    const apiUrl = backendURL.value + '1';
     fetch(apiUrl)
       .then((data) => data.json()) 
       .then((data) => {

@@ -5,6 +5,7 @@ import Cookies from 'js-cookie'
 import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
 import ActionAreaCard from '../components/listsheet/ActionAreaCard';
+import backendURL from '../backendURL';
 
 const Posts = () => {
 
@@ -15,9 +16,8 @@ const Posts = () => {
 
 	// fetches data from Django backend
 	useEffect(() => {
-		console.log(Cookies.get('access_token'))
     setAppState({ loading: true });
-    const apiUrl = `http://127.0.0.1:8000/api/`;
+    const apiUrl = backendURL.value;
     fetch(apiUrl, { 
 			method: 'GET', 
 			headers: new Headers({
@@ -34,19 +34,19 @@ const Posts = () => {
   }, [setAppState]);
 
 	if(!appState.posts)
-	return <p style={{textAlign: 'center'}}>
+	return <p style={{display: 'flex',  justifyContent:'center', alignItems:'center', height: '40vh'}}>
 				We are waiting for the data to load!...
 			</p>;
 	
-	console.log(appState.posts);
+	// console.log(appState.posts);
 
 	const posts = appState.posts;
 	if (!posts || posts.length === 0) 
-		return <p style={{textAlign: 'center'}}>
+		return <p style={{display: 'flex',  justifyContent:'center', alignItems:'center', height: '40vh'}}>
 				Can not find any posts, sorry
 			</p>;
 	else if (posts["detail"] === 'Given token not valid for any token type')
-		return <p style={{textAlign: 'center'}}>
+		return <p style={{display: 'flex',  justifyContent:'center', alignItems:'center', height: '40vh'}}>
 				Please sign in first before accessing the tuning sheets.
 			</p>;
 
@@ -59,7 +59,7 @@ const Posts = () => {
 						return (
 							// Enterprise card is full width at sm breakpoint
 							<Grid item key={post.id} xs={12} md={4}>
-								<ActionAreaCard title={post.title} body={post.excerpt}/>
+								<ActionAreaCard title={post.title} body={post.excerpt} imageURL={post.photo}/>
 							</Grid>
 						);
 					})}
