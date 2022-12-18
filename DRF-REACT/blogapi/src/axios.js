@@ -2,10 +2,10 @@ import axios from 'axios';
 import Cookies from 'js-cookie'
 import backendURL from './backendURL';
 
-const baseURL = backendURL.value;
+const apiURL = backendURL.value + '/api';
 
 const axiosInstance = axios.create({
-	baseURL: baseURL,
+	baseURL: apiURL,
 	timeout: 5000,
 	headers: {
 		Authorization: Cookies.get('access')
@@ -34,7 +34,7 @@ axiosInstance.interceptors.response.use(
 
 		if (
 			error.response.status === 401 &&
-			originalRequest.url === baseURL + 'token/refresh/'
+			originalRequest.url === apiURL + 'token/refresh/'
 		) {
 			window.location.href = '/login/';
 			return Promise.reject(error);

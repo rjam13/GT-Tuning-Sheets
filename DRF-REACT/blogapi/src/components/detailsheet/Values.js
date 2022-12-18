@@ -16,7 +16,7 @@ const Values = ({ data, onChange }) => {
       sx={{
         flexGrow: 1,
         // padding for top an bottom
-        py: 8,
+        my: 6,
       }}
     >
       <form

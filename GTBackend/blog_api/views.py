@@ -31,6 +31,8 @@ class TuningSheetDetail(generics.RetrieveDestroyAPIView, SheetUserWritePermissio
     queryset = TuningSheet.objects.all()
     serializer_class = TuningSheetSerializer
 
+# This view gets the specific tuning, 
+# tyre choices, suspension choices, and differential choices
 @api_view(['GET'])
 def getTuningSheetDetail(request, pk):
     sheet = TuningSheet.objects.get(id=pk)

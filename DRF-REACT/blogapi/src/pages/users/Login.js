@@ -42,6 +42,7 @@ export default function Login() {
 			password: data.get('password'),
     };
 
+    // sets access_tokens and refresh_tokens
 		axiosInstance
 			.post(`token/`, values)
 			.then((res) => {
