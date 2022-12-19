@@ -5,28 +5,18 @@ import {
   Divider,
   Grid,
   TextField,
-  MenuItem
-} from '@mui/material';
+  MenuItem,
+} from "@mui/material";
 // import Paper from '@mui/material/Paper';
 
 const Tyres = ({ onChange, tyres_front, tyres_rear, tyreChoices }) => {
-
   return (
     <Card>
-      <CardHeader
-        title="Tyres"
-      />
+      <CardHeader title="Tyres" />
       <Divider />
       <CardContent>
-        <Grid
-          container
-          spacing={3}
-        >
-          <Grid
-            item
-            md={6}
-            xs={12}
-          >
+        <Grid container spacing={3}>
+          <Grid item md={6} xs={12}>
             <TextField
               fullWidth
               label="Front Tyres"
@@ -39,20 +29,13 @@ const Tyres = ({ onChange, tyres_front, tyres_rear, tyreChoices }) => {
               variant="outlined"
             >
               {tyreChoices.map((option, index) => (
-                <MenuItem
-                  key={index}
-                  value={option}
-                >
+                <MenuItem key={index} value={option}>
                   {option}
                 </MenuItem>
               ))}
             </TextField>
           </Grid>
-          <Grid
-            item
-            md={6}
-            xs={12}
-          >
+          <Grid item md={6} xs={12}>
             <TextField
               fullWidth
               label="Rear Tyres"
@@ -64,10 +47,7 @@ const Tyres = ({ onChange, tyres_front, tyres_rear, tyreChoices }) => {
               variant="outlined"
             >
               {tyreChoices.map((option, index) => (
-                <MenuItem
-                  key={index}
-                  value={option}
-                >
+                <MenuItem key={index} value={option}>
                   {option}
                 </MenuItem>
               ))}
@@ -77,7 +57,7 @@ const Tyres = ({ onChange, tyres_front, tyres_rear, tyreChoices }) => {
       </CardContent>
       <Divider />
     </Card>
-  )
-}
+  );
+};
 
-export default Tyres
+export default Tyres;

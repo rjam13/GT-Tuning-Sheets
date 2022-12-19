@@ -33,6 +33,13 @@ const Layout = () => {
           },
         },
       },
+      MuiCard: {
+        styleOverrides: {
+          root: {
+            backgroundColor: "transparent",
+          },
+        },
+      },
     },
   });
 
