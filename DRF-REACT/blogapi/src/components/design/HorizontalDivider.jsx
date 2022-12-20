@@ -2,9 +2,8 @@ import { Box, styled } from "@mui/system";
 
 const HorizontalDivider = styled(Box)(() => ({
   height: "0.125em",
-  width: "85%",
-  marginLeft: "auto",
-  marginRight: "auto",
+  marginLeft: "24px",
+  marginRight: "24px",
   background: "rgba(255, 255, 255, 0.15)",
 }));
 

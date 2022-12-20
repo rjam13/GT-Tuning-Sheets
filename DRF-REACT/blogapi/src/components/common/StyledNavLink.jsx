@@ -2,7 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import { Box } from "@mui/system";
 
-const StyledNavLink = ({ route }) => {
+const StyledNavLink = ({ name, path }) => {
   return (
     <Box
       sx={{
@@ -28,9 +28,9 @@ const StyledNavLink = ({ route }) => {
       <NavLink
         href="#"
         style={{ fontWeight: "bolder", color: "white", textDecoration: "none" }}
-        to={`/${route.toLowerCase()}`}
+        to={path}
       >
-        {route.toUpperCase()}
+        {name.toUpperCase()}
       </NavLink>
     </Box>
   );

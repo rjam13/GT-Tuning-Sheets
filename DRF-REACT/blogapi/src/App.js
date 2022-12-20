@@ -1,8 +1,5 @@
 import React from "react";
-import {
-  createBrowserRouter,
-  RouterProvider
-} from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 // import {CookiesProvider} from "react-cookie";
 import ListSheet from "./pages/sheets/ListSheet";
 import DetailSheet from "./pages/sheets/DetailSheet";
@@ -46,6 +43,24 @@ export const primaryRoutes = [
   // },
 ];
 
+export const authenticationRoutes = [
+  {
+    name: "Register",
+    path: "/register",
+    element: <Register />,
+  },
+  {
+    name: "Login",
+    path: "/login",
+    element: <Login />,
+  },
+  {
+    name: "Logout",
+    path: "/logout",
+    element: <Logout />,
+  },
+];
+
 const App = () => {
   const router = createBrowserRouter([
     {
@@ -53,21 +68,7 @@ const App = () => {
       element: <Layout />,
       children: [
         ...primaryRoutes,
-        {
-          name: "Register",
-          path: "/register",
-          element: <Register />,
-        },
-        {
-          name: "Login",
-          path: "/login",
-          element: <Login />,
-        },
-        {
-          name: "Logout",
-          path: "/logout",
-          element: <Logout />,
-        },
+        ...authenticationRoutes,
         // {
         //   name: "Profile",
         //   path: "/profile",

@@ -7,6 +7,8 @@ import CssBaseline from "@mui/material/CssBaseline";
 import { Box } from "@mui/system";
 import StyledNavLink from "../common/StyledNavLink";
 import HorizontalDivider from "../design/HorizontalDivider";
+import { primaryRoutes as routes } from "../../App";
+import ProfilePopover from "./ProfilePopover";
 
 // const theme = createTheme();
 
@@ -20,32 +22,34 @@ const Header = () => {
         elevation={0}
         sx={{
           backgroundColor: "transparent",
-          py: "40px",
-          // bottom border
-          // "&:after": {
-          //   mt: "25px",
-          //   mx: "auto",
-          //   content: '""',
-          //   display: "block",
-          //   backgroundColor: "white",
-          //   width: "85vw",
-          //   height: "1px",
-          // }
+          pb: "40px",
         }}
       >
         <Toolbar
+          className="header-toolbar"
           sx={{
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
           }}
         >
+          <Box className="header-socials" sx={{ position: "absolute" }}>
+            {/* socials here */}
+          </Box>
+          <Box
+            className="header-profile"
+            sx={{ position: "absolute", right: "24px", top: "24px" }}
+          >
+            <ProfilePopover />
+          </Box>
+
           <Box
             className="header-logo__container"
             sx={{
               display: "flex",
-              // flexDirection: "column",
+              flexDirection: {xs: "column", md: "row"},
               alignItems: "center",
+              mt: "40px",
             }}
           >
             <Box
@@ -53,21 +57,19 @@ const Header = () => {
               sx={{
                 height: 45,
                 width: 68,
-                maxHeight: { xs: 233, md: 167 },
-                maxWidth: { xs: 350, md: 250 },
               }}
               href="/#"
-              alt="GT Tuning Sheet Logo"
+              alt="Gran Turismo Logo"
               src="https://www.gran-turismo.com/common/front/img/global/logo-gt.svg"
             />
             <Typography
               variant="h1"
-              fontSize="2.5rem"
               color="inherit"
               noWrap
               sx={{
-                ml: "20px",
-                flexGrow: 1,
+                mt: { xs: "20px", md: "0" },
+                ml: { xs: "0", md: "20px" },
+                fontSize: { xs: "1.5rem", md: "2.5rem" },
               }}
             >
               Gran Turismo Tuning Sheets
@@ -82,15 +84,16 @@ const Header = () => {
               alignItems: "center",
             }}
           >
-            {["Register", "Login", "Logout"].map((route, i, { length }) => {
+            {routes.map(({ name, path }, i, { length }) => {
+              const navLink = <StyledNavLink name={name} path={path} />;
               if (length - 1 === i) {
                 // last one
-                return <StyledNavLink route={route} />;
+                return navLink;
               } else {
                 // not last one
                 return (
                   <>
-                    <StyledNavLink route={route} />
+                    {navLink}
                     <Box
                       sx={{
                         fontWeight: "lighter",
@@ -106,7 +109,7 @@ const Header = () => {
             })}
           </Box>
         </Toolbar>
-        <HorizontalDivider sx={{mt: "10px"}}/>
+        <HorizontalDivider sx={{ mt: "10px" }} />
       </AppBar>
     </React.Fragment>
   );

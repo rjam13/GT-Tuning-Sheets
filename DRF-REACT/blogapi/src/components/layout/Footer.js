@@ -1,18 +1,19 @@
 import React from "react";
-import { useTheme } from "@mui/material/styles";
+// import { useTheme } from "@mui/material/styles";
 import { Box, Typography, Container } from "@mui/material";
 import { NavLink } from "react-router-dom";
 import { primaryRoutes as routes } from "../../App";
 import HorizontalDivider from "../design/HorizontalDivider";
+import HoverBox from "../design/HoverBox";
 
 const Footer = () => {
-  const theme = useTheme();
+  // const theme = useTheme();
   return (
     <Container
       component="footer"
       maxWidth={false}
       sx={{
-        opacity: 0.7,
+        opacity: 0.8,
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
@@ -23,7 +24,7 @@ const Footer = () => {
         },
       }}
     >
-      <Box
+      <HoverBox
         component="a"
         href="/#"
         sx={{
@@ -31,8 +32,6 @@ const Footer = () => {
           alignItems: "center",
           textDecoration: "none",
           mb: "1rem",
-          transition: "all 400ms ease",
-          "&:hover": { opacity: "0.6" },
         }}
       >
         <img
@@ -51,7 +50,7 @@ const Footer = () => {
         >
           Gran Turismo Tuning Sheets
         </Typography>
-      </Box>
+      </HoverBox>
       <Box
         sx={{
           display: "flex",
@@ -72,23 +71,19 @@ const Footer = () => {
             }}
             tabIndex="-1"
           >
-            {() => (
-              <Typography
-                sx={{
-                  textAlign: "center",
-                  color: "white",
-                  transition: "all 400ms ease",
-                  "&:hover": { color: theme.palette.primary.main },
-                }}
-                color="primary"
-              >
-                {name}
-              </Typography>
-            )}
+            <HoverBox
+              sx={{
+                textAlign: "center",
+                color: "white",
+              }}
+              component="Typography"
+            >
+              {name}
+            </HoverBox>
           </NavLink>
         ))}
       </Box>
-      <HorizontalDivider />
+      <HorizontalDivider width="100%" />
       <Box>
         <small>&copy; GT Tuning Sheets. All rights reserved.</small>
       </Box>
