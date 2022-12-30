@@ -41,7 +41,7 @@ const DetailSheet = () => {
       container
       className="DetailSheet"
       style={{ 
-        width: "1500px",
+        maxWidth: "1500px",
         margin: "0 auto"
       }}
     >
@@ -52,12 +52,14 @@ const DetailSheet = () => {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
+          mx: "10px",
         }}
       >
         <Box
           component="img"
           sx={{
-            maxWidth: 1160,
+            width: "100%",
+            maxWidth: "1160px",
           }}
           src={backendURL.value + appState.data.sheet.photo}
         />
