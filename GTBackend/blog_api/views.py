@@ -1,59 +1,76 @@
-from lib2to3.pytree import Base
-from rest_framework import generics
+# from lib2to3.pytree import Base
+# from rest_framework import generics
+# from rest_framework.permissions import DjangoModelPermissionsOrAnonReadOnly, BasePermission, SAFE_METHODS, IsAuthenticated
+from django.http.response import JsonResponse
+from rest_framework.parsers import JSONParser 
 from rest_framework import status
-from rest_framework.decorators import api_view
 from rest_framework.response import Response
+
 from blog.models import TuningSheet
 from .serializers import TuningSheetSerializer
-from rest_framework.permissions import DjangoModelPermissionsOrAnonReadOnly, BasePermission, SAFE_METHODS, IsAuthenticated
+from rest_framework.decorators import api_view
 
-class SheetUserWritePermission(BasePermission):
-    message = 'Editing tuning sheets is restricted to the author only.'
-
-    def has_object_permission(self, request, view, obj):
-
-        # is they just want to GET, allow them through
-        if request.method in SAFE_METHODS:
-            return True
-
-        # anything else, we have to check if they're the author
-        return obj.author == request.user
-
-class TuningSheetList(generics.ListCreateAPIView):
-    permission_classes = [IsAuthenticated]
-    # accesses the manager within post so that we can retrieve all the published posts
-    queryset = TuningSheet.tuningsheetobjects.all()
-    serializer_class = TuningSheetSerializer
-
-# change what is after generics. to change the abilities
-class TuningSheetDetail(generics.RetrieveDestroyAPIView, SheetUserWritePermission):
-    permission_classes = [SheetUserWritePermission]
-    queryset = TuningSheet.objects.all()
-    serializer_class = TuningSheetSerializer
-
-# This view gets the specific tuning, 
-# tyre choices, suspension choices, and differential choices
 @api_view(['GET'])
 def getTuningSheetDetail(request, pk):
-    sheet = TuningSheet.objects.get(id=pk)
-    serializer = TuningSheetSerializer(sheet, many=False)
 
-    def getChoice(choice):
-        return choice[0]
+    try: 
+        sheet = TuningSheet.objects.get(id=pk)
+    except TuningSheet.DoesNotExist: 
+        return JsonResponse({'message': 'The tuning sheet does not exist'}, status=status.HTTP_404_NOT_FOUND) 
 
-    tyre_choices = map(getChoice, TuningSheet.TYRE_CHOICES)
-    suspension_choices = map(getChoice, TuningSheet.SUS_CHOICES)
-    differential_choices = map(getChoice, TuningSheet.DIF_CHOICES)
+    # Gets the specific tuning, tyre choices, suspension choices, and differential choices
+    if request.method == 'GET': 
 
-    return Response({
-        'sheet': serializer.data, 
-        'tyre_choices': tyre_choices,
-        'suspension_choices': suspension_choices,
-        'differential_choices': differential_choices,
-        }, status=status.HTTP_200_OK)
-    
+        def getChoice(choice):
+            return choice[0]
+        tyre_choices = map(getChoice, TuningSheet.TYRE_CHOICES)
+        suspension_choices = map(getChoice, TuningSheet.SUS_CHOICES)
+        differential_choices = map(getChoice, TuningSheet.DIF_CHOICES)
 
+        sheet_serializer = TuningSheetSerializer(sheet, many=False)
 
+        return Response({
+            'sheet': sheet_serializer.data, 
+            'tyre_choices': tyre_choices,
+            'suspension_choices': suspension_choices,
+            'differential_choices': differential_choices,
+            }, status=status.HTTP_200_OK)
+
+    # Updates the specific sheet
+    elif request.method == 'PUT': 
+        sheet_data = JSONParser().parse(request) 
+        sheet_serializer = TuningSheetSerializer(sheet, data=sheet_data) 
+        if sheet_serializer.is_valid(): 
+            sheet_serializer.save() 
+            return JsonResponse(sheet_serializer.data) 
+        return JsonResponse(sheet_serializer.errors, status=status.HTTP_400_BAD_REQUEST) 
+
+    elif request.method == 'DELETE': 
+        sheet.delete() 
+        return JsonResponse({'message': 'Tuning sheet was deleted successfully!'}, status=status.HTTP_204_NO_CONTENT)
+
+@api_view(['GET', 'POST'])
+def TuningSheetList(request):
+    # Gets all sheets or a filtered list of sheets
+    if request.method == 'GET':
+        sheets = TuningSheet.objects.all()
+        
+        title = request.query_params.get('title', None)
+        if title is not None:
+            sheets = sheets.filter(title__icontains=title)
+        
+        sheets_serializer = TuningSheetSerializer(sheets, many=True)
+        return JsonResponse(sheets_serializer.data, safe=False)
+        # 'safe=False' for objects serialization
+ 
+    # Creates a new tuning sheet
+    elif request.method == 'POST':
+        sheet_data = JSONParser().parse(request)
+        sheet_serializer = TuningSheetSerializer(data=sheet_data)
+        if sheet_serializer.is_valid():
+            sheet_serializer.save()
+            return JsonResponse(sheet_serializer.data, status=status.HTTP_201_CREATED) 
+        return JsonResponse(sheet_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 """ Concrete View Classes
 #CreateAPIView
@@ -75,3 +92,27 @@ Used for read or delete endpoints to represent a single model instance.
 #RetrieveUpdateDestroyAPIView
 Used for read-write-delete endpoints to represent a single model instance.
 """
+
+# class SheetUserWritePermission(BasePermission):
+#     message = 'Editing tuning sheets is restricted to the author only.'
+
+#     def has_object_permission(self, request, view, obj):
+
+#         # is they just want to GET, allow them through
+#         if request.method in SAFE_METHODS:
+#             return True
+
+#         # anything else, we have to check if they're the author
+#         return obj.author == request.user
+
+# class TuningSheetList(generics.ListCreateAPIView):
+#     permission_classes = [IsAuthenticated]
+#     # accesses the manager within post so that we can retrieve all the published posts
+#     queryset = TuningSheet.tuningsheetobjects.all()
+#     serializer_class = TuningSheetSerializer
+
+# # change what is after generics. to change the abilities
+# class TuningSheetDetail(generics.RetrieveDestroyAPIView, SheetUserWritePermission):
+#     permission_classes = [SheetUserWritePermission]
+#     queryset = TuningSheet.objects.all()
+#     serializer_class = TuningSheetSerializer
