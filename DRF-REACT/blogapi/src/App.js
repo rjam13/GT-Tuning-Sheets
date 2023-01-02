@@ -1,6 +1,7 @@
 import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 // import {CookiesProvider} from "react-cookie";
+import Home from "./pages/Home";
 import ListSheet from "./pages/sheets/ListSheet";
 import DetailSheet from "./pages/sheets/DetailSheet";
 import Register from "./pages/users/Register";
@@ -12,12 +13,23 @@ export const primaryRoutes = [
   {
     name: "Home",
     path: "/",
-    element: <ListSheet />,
+    element: <Home />,
   },
   {
-    name: "Sheet",
-    path: "/sheet",
-    element: <DetailSheet />,
+    name: "Sheets",
+    path: "/sheets",
+    children: [
+      {
+        name: "Sheets",
+        index: "true",
+        element: <ListSheet />,
+      },
+      {
+        name: "Sheet",
+        path: "1",
+        element: <DetailSheet />,
+      },
+    ],
   },
   // {
   //   name: "Sheet",

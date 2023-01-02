@@ -55,16 +55,6 @@ const Posts = () => {
   const posts = appState.posts;
   if (!posts || posts.length === 0)
     return (
-      // <p
-      //   style={{
-      //     display: "flex",
-      //     justifyContent: "center",
-      //     alignItems: "center",
-      //     height: "40vh",
-      //   }}
-      // >
-      //   Can not find any posts, sorry
-      // </p>
       <>
         <Box sx={{ width: "100%" }}>
           Sorry, there are no project with those criteria!
@@ -100,14 +90,6 @@ const Posts = () => {
     <div className="ListSheet">
       <h1 style={{ textAlign: "center" }}>Latest Posts</h1>
       <Container maxWidth="md" component="main" sx={{ height: "100vh" }}>
-        {/* <Grid container spacing={5} alignItems="flex-end">
-          {posts.map((post) => {
-            return (
-              // Enterprise card is full width at sm breakpoint
-              <Grid item key={post.id} xs={12} md={4}></Grid>
-            );
-          })}
-        </Grid> */}
         <Box
           sx={{
             display: "grid",
@@ -159,9 +141,10 @@ const Posts = () => {
                 key={index}
               >
                 <ActionAreaCard
+                  sheetId={post.id}
                   title={post.title}
                   body={post.excerpt}
-                  imageURL={post.photo}
+                  imageURL={backendURL.value + post.photo}
                 />
               </Box>
             );

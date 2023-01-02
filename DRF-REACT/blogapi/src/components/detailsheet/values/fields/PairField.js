@@ -11,13 +11,12 @@ const PairField = ({setting, metric, name, front, rear, onChange}) => {
       item
       spacing={1.5}
       container
-      md={12}
       xs={12}
     >
       <Grid
         item
-        md={5.25}
-        xs={5.25}
+        sm={5.25}
+        xs={5}
       >
         <Box mt={1.5}>
           <Typography
@@ -30,8 +29,8 @@ const PairField = ({setting, metric, name, front, rear, onChange}) => {
       </Grid>
       <Grid
         item
-        md={0.75}
-        xs={0.75}
+        sm={0.75}
+        xs={1}
       >
         <Box mt={1.5}>
           <Typography
@@ -44,7 +43,6 @@ const PairField = ({setting, metric, name, front, rear, onChange}) => {
       </Grid>
       <Grid
         item
-        md={3}
         xs={3}
       >
         <TextField
@@ -60,7 +58,6 @@ const PairField = ({setting, metric, name, front, rear, onChange}) => {
       </Grid>
       <Grid
         item
-        md={3}
         xs={3}
       >
         <TextField

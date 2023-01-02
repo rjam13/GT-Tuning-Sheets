@@ -1,21 +1,21 @@
-import * as React from 'react';
-import { useNavigate } from 'react-router-dom';
+import * as React from "react";
+import { useNavigate } from "react-router-dom";
 // import { Link as RouterLink } from 'react-router-dom';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Typography from '@mui/material/Typography';
-import { CardActionArea } from '@mui/material';
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
+import Typography from "@mui/material/Typography";
+import { CardActionArea } from "@mui/material";
 
-export default function ActionAreaCard({ title, body, imageURL }) {
+export default function ActionAreaCard({ sheetId, title, body, imageURL }) {
   const navigate = useNavigate();
   return (
     <Card sx={{ maxWidth: 345 }}>
-      <CardActionArea onClick={() => navigate('/sheet')}>
+      <CardActionArea onClick={() => navigate(`/sheets/${sheetId}`)}>
         <CardMedia
           component="img"
           height="140"
-					title="Image title"
+          title="Image title"
           image={imageURL}
         />
         <CardContent>
