@@ -1,17 +1,11 @@
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  Divider,
-  Grid,
-} from '@mui/material';
-import SelectField from './fields/SelectField';
-import PairField from './fields/PairField';
-import SingleField from './fields/SingleField';
+import { Card, CardContent, CardHeader, Divider, Grid } from "@mui/material";
+import SelectField from "./fields/SelectField";
+import PairField from "./fields/PairField";
+import SingleField from "./fields/SingleField";
 
 const Differential = ({
-  onChange, 
-  differential, 
+  onChange,
+  differential,
   initial_torque_front,
   initial_torque_rear,
   accel_sensitivity_front,
@@ -20,19 +14,14 @@ const Differential = ({
   braking_sensitivity_rear,
   tvc_differential,
   front_rear_torque_distribution,
-  differentialChoices }) => {
-
+  differentialChoices,
+}) => {
   return (
     <Card>
-      <CardHeader
-        title="Differential Gear"
-      />
+      <CardHeader title="Differential Gear" />
       <Divider />
       <CardContent>
-        <Grid
-          container
-          spacing={3}
-        >
+        <Grid container spacing={3}>
           <SelectField
             label={"Differential"}
             name={"differential"}
@@ -40,7 +29,7 @@ const Differential = ({
             choices={differentialChoices}
             onChange={onChange}
           />
-          <PairField 
+          <PairField
             setting={"Initial Torque"}
             metric={"Lv."}
             name={"initial_torque"}
@@ -48,7 +37,7 @@ const Differential = ({
             rear={initial_torque_rear}
             onChange={onChange}
           />
-          <PairField 
+          <PairField
             setting={"Acceleration Sensitivity"}
             metric={"Lv."}
             name={"accel_sensitivity"}
@@ -56,7 +45,7 @@ const Differential = ({
             rear={accel_sensitivity_rear}
             onChange={onChange}
           />
-          <PairField 
+          <PairField
             setting={"Braking Sensitivity"}
             metric={"Lv."}
             name={"braking_sensitivity"}
@@ -64,13 +53,13 @@ const Differential = ({
             rear={braking_sensitivity_rear}
             onChange={onChange}
           />
-          <SingleField 
+          <SingleField
             setting={"Torque-Vectoring Center Differential"}
             name={"tvc_differential"}
             value={tvc_differential}
             onChange={onChange}
           />
-          <SingleField 
+          <SingleField
             setting={"Front/Rear Torque Distribution"}
             name={"front_rear_torque_distribution"}
             value={front_rear_torque_distribution}
@@ -80,7 +69,7 @@ const Differential = ({
       </CardContent>
       <Divider />
     </Card>
-  )
-}
+  );
+};
 
-export default Differential
+export default Differential;

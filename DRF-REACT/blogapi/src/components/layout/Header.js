@@ -47,7 +47,7 @@ const Header = () => {
             className="header-logo__container"
             sx={{
               display: "flex",
-              flexDirection: {xs: "column", md: "row"},
+              flexDirection: { xs: "column", md: "row" },
               alignItems: "center",
               mt: "40px",
             }}

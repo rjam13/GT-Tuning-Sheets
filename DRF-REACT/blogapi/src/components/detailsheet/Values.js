@@ -9,7 +9,7 @@ const Values = ({ data, onChange }) => {
   const tyreChoices = data["tyre_choices"];
   const differentialChoices = data["differential_choices"];
   const suspensionChoices = data["suspension_choices"];
-  
+
   // Styling
   const theme = useTheme();
   // fixing order of value sections when making screen sizes smaller

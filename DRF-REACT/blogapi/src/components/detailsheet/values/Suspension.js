@@ -1,16 +1,10 @@
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  Divider,
-  Grid,
-} from '@mui/material';
-import SelectField from './fields/SelectField';
-import PairField from './fields/PairField';
+import { Card, CardContent, CardHeader, Divider, Grid } from "@mui/material";
+import SelectField from "./fields/SelectField";
+import PairField from "./fields/PairField";
 
 const Suspension = ({
-  onChange, 
-  suspension, 
+  onChange,
+  suspension,
   suspensionChoices,
   height_front,
   height_rear,
@@ -25,19 +19,14 @@ const Suspension = ({
   camber_front,
   camber_rear,
   toe_front,
-  toe_rear }) => {
-
+  toe_rear,
+}) => {
   return (
     <Card>
-      <CardHeader
-        title="Suspension"
-      />
+      <CardHeader title="Suspension" />
       <Divider />
       <CardContent>
-        <Grid
-          container
-          spacing={3}
-        >
+        <Grid container spacing={3}>
           <SelectField
             label={"Suspension"}
             name={"suspension"}
@@ -45,7 +34,7 @@ const Suspension = ({
             choices={suspensionChoices}
             onChange={onChange}
           />
-          <PairField 
+          <PairField
             setting={"Body Height Adjustment"}
             metric={"mm"}
             name={"height"}
@@ -53,7 +42,7 @@ const Suspension = ({
             rear={height_rear}
             onChange={onChange}
           />
-          <PairField 
+          <PairField
             setting={"Anti-Roll Bar"}
             metric={"Lv."}
             name={"anti_roll_bar"}
@@ -61,7 +50,7 @@ const Suspension = ({
             rear={anti_roll_bar_rear}
             onChange={onChange}
           />
-          <PairField 
+          <PairField
             setting={"Damping Ratio (Compression)"}
             metric={"%"}
             name={"compression"}
@@ -69,7 +58,7 @@ const Suspension = ({
             rear={compression_rear}
             onChange={onChange}
           />
-          <PairField 
+          <PairField
             setting={"Damping Ratio (Expansion)"}
             metric={"%"}
             name={"expansion"}
@@ -77,7 +66,7 @@ const Suspension = ({
             rear={expansion_rear}
             onChange={onChange}
           />
-          <PairField 
+          <PairField
             setting={"Natural Frequency"}
             metric={"Hz"}
             name={"natural_frequency"}
@@ -85,7 +74,7 @@ const Suspension = ({
             rear={natural_frequency_rear}
             onChange={onChange}
           />
-          <PairField 
+          <PairField
             setting={"Negative Camber Angle"}
             metric={"Deg."}
             name={"camber"}
@@ -93,7 +82,7 @@ const Suspension = ({
             rear={camber_rear}
             onChange={onChange}
           />
-          <PairField 
+          <PairField
             setting={"Toe Angle"}
             metric={"Deg."}
             name={"toe"}
@@ -105,7 +94,7 @@ const Suspension = ({
       </CardContent>
       <Divider />
     </Card>
-  )
-}
+  );
+};
 
-export default Suspension
+export default Suspension;

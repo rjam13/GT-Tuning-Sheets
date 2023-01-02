@@ -54,7 +54,7 @@ export default function ProfilePopover() {
         {/* <Typography sx={{ p: 2 }}>The content of the Popover.</Typography>
         <Divider /> */}
         <List>
-          {routes.slice(0,2).map(({ name, path }, i, { length }) => (
+          {routes.slice(0, 2).map(({ name, path }, i, { length }) => (
             <ListItem disablePadding>
               <ListItemButton>
                 <NavLink
