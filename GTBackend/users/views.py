@@ -14,8 +14,9 @@ class CustomUserCreate(APIView):
         if reg_serializer.is_valid():
             newUser = reg_serializer.save()
             if newUser:
-                return Response(status=status.HTTP_201_CREATED)
-        return Response(reg_serializer.errors, stattus=status.HTTP_400_BAD_REQUEST)
+                # return Response(status=status.HTTP_201_CREATED)
+                return Response(reg_serializer.data, status=status.HTTP_201_CREATED)
+        return Response(reg_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class BlacklistTokenUpdateView(APIView):
     permission_classes = [AllowAny]

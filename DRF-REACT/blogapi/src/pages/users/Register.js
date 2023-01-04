@@ -40,6 +40,7 @@ export default function Register() {
     event.preventDefault();
     const values = {
       username: data.get("username"),
+      email: data.get("email"),
       password: data.get("password"),
     };
     console.log(values);
@@ -79,6 +80,16 @@ export default function Register() {
                 label="Username"
                 name="username"
                 autoComplete="username"
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                required
+                fullWidth
+                id="email"
+                label="Email"
+                name="email"
+                autoComplete="email"
               />
             </Grid>
             <Grid item xs={12}>

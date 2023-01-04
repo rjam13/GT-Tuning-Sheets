@@ -1,0 +1,7 @@
+[run]
+source=users/,blog/,blogapi,
+omit=
+  venv
+  */migrations/*
+  */tests/*
+  */__init__.py
