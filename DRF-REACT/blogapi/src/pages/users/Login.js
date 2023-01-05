@@ -52,11 +52,12 @@ export default function Login() {
     };
 
     // sets access_tokens and refresh_tokens
-    axiosInstance.post(`token/`, values).then((res) => {
+    axiosInstance.post(`user/login/`, values).then((res) => {
       Cookies.set("access_token", res.data.access);
       Cookies.set("refresh_token", res.data.refresh);
       axiosInstance.defaults.headers["Authorization"] =
         "JWT " + Cookies.get("access_token");
+      // console.log(res.data);
       navigate("/");
     });
     // make sure to error check

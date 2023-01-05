@@ -3,9 +3,14 @@ from django.contrib.auth.hashers import make_password
 from django.db import models
 from helpers.models import TrackingModel
 from django.contrib.auth.validators import UnicodeUsernameValidator
-from django.contrib.auth.models import (PermissionsMixin, UserManager, AbstractBaseUser)
+from django.contrib.auth.models import (
+    PermissionsMixin, UserManager, AbstractBaseUser)
 from django.utils.translation import gettext_lazy as _
 from django.utils import timezone
+import jwt
+import core.settings as settings
+from datetime import datetime, timedelta
+
 
 class MyUserManager(UserManager):
     def _create_user(self, username, email, password, **extra_fields):
@@ -48,6 +53,8 @@ class MyUserManager(UserManager):
         return self._create_user(username, email, password, **extra_fields)
 
 # Create your models here.
+
+
 class User(AbstractBaseUser, PermissionsMixin, TrackingModel):
 
     username_validator = UnicodeUsernameValidator()
@@ -68,7 +75,8 @@ class User(AbstractBaseUser, PermissionsMixin, TrackingModel):
     is_staff = models.BooleanField(
         _("staff status"),
         default=False,
-        help_text=_("Designates whether the user can log into this admin site."),
+        help_text=_(
+            "Designates whether the user can log into this admin site."),
     )
     is_active = models.BooleanField(
         _("active"),
@@ -96,4 +104,6 @@ class User(AbstractBaseUser, PermissionsMixin, TrackingModel):
 
     @property
     def token(self):
-        return ''
+        token = jwt.encode(payload={"username": self.username, 'email': self.email, 'exp': datetime.utcnow(
+        ) + timedelta(hours=24)}, key=settings.SECRET_KEY, algorithm="HS256")
+        return token
