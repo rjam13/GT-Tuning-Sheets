@@ -12,7 +12,7 @@ from django.contrib.auth import authenticate
 
 class AuthUserAPIView(GenericAPIView):
 
-    # At least, the call should have a token
+    # IsAuthenticated requires that the call should have a token
     # note: comma is needed after the last item in tuple
     permission_classes= (permissions.IsAuthenticated,)
 
