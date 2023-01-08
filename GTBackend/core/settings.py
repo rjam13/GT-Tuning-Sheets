@@ -15,6 +15,7 @@ from decouple import config
 from datetime import timedelta
 import os
 
+APPEND_SLASH = False
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -174,7 +175,7 @@ REST_FRAMEWORK = {
         # 'rest_framework.permissions.IsAuthenticated',
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'users.jwt.JWTAuthentication',
     ),
 }
 
