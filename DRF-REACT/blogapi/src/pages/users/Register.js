@@ -43,7 +43,6 @@ export default function Register() {
       email: data.get("email"),
       password: data.get("password"),
     };
-    console.log(values);
 
     axiosInstance.post(`user/register/`, values).then((res) => {
       navigate("/login");

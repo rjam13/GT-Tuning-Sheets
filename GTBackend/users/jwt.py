@@ -9,6 +9,7 @@ class JWTAuthentication(BaseAuthentication):
     def authenticate(self, request):
 
         auth_header = get_authorization_header(request)
+        print(auth_header)
         auth_data = auth_header.decode('utf-8')
         auth_token = auth_data.split(" ")
         token = auth_token[1]

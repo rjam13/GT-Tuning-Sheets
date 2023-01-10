@@ -26,6 +26,7 @@ class AuthUserAPIView(GenericAPIView):
 
 class CustomUserRegister(APIView):
     permission_classes = [AllowAny]
+    authentication_classes = ()
 
     def post(self, request):
         serializer = RegisterUserSerializer(data=request.data)
@@ -40,6 +41,7 @@ class CustomUserRegister(APIView):
 
 
 class CustomUserLogin(GenericAPIView):
+    authentication_classes = ()
 
     def post(self, request):
         username = request.data.get('username', None)

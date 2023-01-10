@@ -84,29 +84,23 @@ const Header = () => {
               alignItems: "center",
             }}
           >
-            {routes.map(({ name, path }, i, { length }) => {
-              const navLink = <StyledNavLink name={name} path={path} />;
-              if (length - 1 === i) {
-                // last one
-                return navLink;
-              } else {
-                // not last one
-                return (
-                  <>
-                    {navLink}
-                    <Box
-                      sx={{
-                        fontWeight: "lighter",
-                        fontSize: "28px",
-                        mx: "15px",
-                      }}
-                    >
-                      /
-                    </Box>
-                  </>
-                );
-              }
-            })}
+            {routes.map(({ name, path }, i, { length }) => (
+              <React.Fragment key={name}>
+                <StyledNavLink name={name} path={path} key={name} />
+                {/* // not last one */}
+                {length - 1 !== i && (
+                  <Box
+                    sx={{
+                      fontWeight: "lighter",
+                      fontSize: "28px",
+                      mx: "15px",
+                    }}
+                  >
+                    /
+                  </Box>
+                )}
+              </React.Fragment>
+            ))}
           </Box>
         </Toolbar>
         <HorizontalDivider sx={{ mt: "10px" }} />

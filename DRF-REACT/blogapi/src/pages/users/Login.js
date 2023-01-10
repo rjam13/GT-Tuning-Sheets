@@ -57,7 +57,7 @@ export default function Login() {
       Cookies.set("refresh_token", res.data.refresh);
       axiosInstance.defaults.headers["Authorization"] =
         "JWT " + Cookies.get("access_token");
-      // console.log(res.data);
+      console.log(res.data);
       navigate("/");
     });
     // make sure to error check

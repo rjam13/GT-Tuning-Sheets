@@ -76,7 +76,6 @@ const Footer = () => {
                 textAlign: "center",
                 color: "white",
               }}
-              component="Typography"
             >
               {name}
             </HoverBox>
