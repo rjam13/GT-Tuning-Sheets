@@ -1,8 +1,10 @@
 from django.db import models
+from helpers.models import TrackingModel
 from users.models import User
 from django.utils import timezone
 from django.utils.text import slugify
 from django.utils.safestring import mark_safe
+
 
 class Car(models.Model):
     manufacturer = models.CharField(max_length=100)
@@ -11,8 +13,8 @@ class Car(models.Model):
     def __str__(self):
         return self.name
 
-class TuningSheet(models.Model):
 
+class TuningSheet(TrackingModel):
     class TuningSheetObjects(models.Manager):
         def get_queryset(self):
             return super().get_queryset().filter(status=TuningSheet.PUBLISHED)
@@ -29,7 +31,8 @@ class TuningSheet(models.Model):
     photo = models.ImageField(upload_to='car_photos', null=True, blank=True)
     # upload_to tells django to store the picture in car_photos under the media directory
     excerpt = models.TextField(null=True)
-    slug = models.SlugField(max_length=250, unique_for_date="published", blank=True)
+    slug = models.SlugField(
+        max_length=250, unique_for_date="published", blank=True)
     # used for URLs
     published = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(
@@ -37,11 +40,11 @@ class TuningSheet(models.Model):
     )
     status = models.CharField(
         max_length=10, choices=STATUS_OPTIONS, default=PUBLISHED)
-    objects = models.Manager() # default manager
+    objects = models.Manager()  # default manager
     # https://docs.djangoproject.com/en/4.1/topics/db/managers/
     # custom manager modifying a manager's initial queryset
     # tuningsheet.tuningsheetobjects.all() returns all tuning sheets published
-    tuningsheetobjects = TuningSheetObjects() 
+    tuningsheetobjects = TuningSheetObjects()
 
     # ==================== GENERAL CAR INFO ====================
     performance_points = models.DecimalField(max_digits=5, decimal_places=2)
@@ -105,11 +108,15 @@ class TuningSheet(models.Model):
     expansion_front = models.IntegerField()
     expansion_rear = models.IntegerField()
 
-    natural_frequency_front = models.DecimalField(max_digits=4, decimal_places=2)
-    natural_frequency_rear = models.DecimalField(max_digits=4, decimal_places=2)
+    natural_frequency_front = models.DecimalField(
+        max_digits=4, decimal_places=2)
+    natural_frequency_rear = models.DecimalField(
+        max_digits=4, decimal_places=2)
 
-    camber_front = models.DecimalField(max_digits=3, decimal_places=1, help_text="front negative camber")
-    camber_rear = models.DecimalField(max_digits=3, decimal_places=1, help_text="rear negative camber")
+    camber_front = models.DecimalField(
+        max_digits=3, decimal_places=1, help_text="front negative camber")
+    camber_rear = models.DecimalField(
+        max_digits=3, decimal_places=1, help_text="rear negative camber")
 
     toe_front = models.DecimalField(max_digits=3, decimal_places=2)
     toe_rear = models.DecimalField(max_digits=3, decimal_places=2)
@@ -141,11 +148,11 @@ class TuningSheet(models.Model):
 
     class Meta:
         ordering = ('-published',)
-    
+
     def __str__(self):
         return self.title
 
-    def image_tag(self): # new
+    def image_tag(self):  # new
         return mark_safe('<img src="/../../media/%s" width="160" height="90" />' % (self.photo))
 
     def save(self, *args, **kwargs):

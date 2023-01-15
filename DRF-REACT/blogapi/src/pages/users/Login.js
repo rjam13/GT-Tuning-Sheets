@@ -51,13 +51,17 @@ export default function Login() {
       password: data.get("password"),
     };
 
-    // sets access_tokens and refresh_tokens
     axiosInstance.post(`user/login/`, values).then((res) => {
-      Cookies.set("access_token", res.data.access);
-      Cookies.set("refresh_token", res.data.refresh);
-      axiosInstance.defaults.headers["Authorization"] =
-        "JWT " + Cookies.get("access_token");
+      // sets access_tokens and refresh_tokens
+      // Cookies.set("access_token", res.data.access);
+      // Cookies.set("refresh_token", res.data.refresh);
+      // axiosInstance.defaults.headers["Authorization"] =
+      //   "JWT " + Cookies.get("access_token");
       console.log(res.data);
+      Cookies.set("username", res.data.username);
+      Cookies.set("token", res.data.token);
+      axiosInstance.defaults.headers["Authorization"] =
+        "Bearer " + Cookies.get("token");
       navigate("/");
     });
     // make sure to error check

@@ -13,7 +13,7 @@ import {
 import { NavLink } from "react-router-dom";
 import { authenticationRoutes as routes } from "../../App";
 
-export default function ProfilePopover() {
+export default function ProfilePopover({ username }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleClick = (event) => {
@@ -34,7 +34,7 @@ export default function ProfilePopover() {
         aria-describedby={id}
         onClick={handleClick}
       >
-        <Typography sx={{ mr: "7px" }}>Profile</Typography>
+        <Typography sx={{ mr: "7px" }}>{username ? username : "profile"}</Typography>
         <PersonOutlineIcon sx={{ height: "30px", width: "30px" }} />
       </HoverBox>
       <Popover
@@ -54,7 +54,7 @@ export default function ProfilePopover() {
         {/* <Typography sx={{ p: 2 }}>The content of the Popover.</Typography>
         <Divider /> */}
         <List>
-          {routes.slice(0, 2).map(({ name, path }, i, { length }) => (
+          {routes.slice(0, 3).map(({ name, path }, i, { length }) => (
             <ListItem key={name} disablePadding>
               <ListItemButton>
                 <NavLink

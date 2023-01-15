@@ -11,7 +11,7 @@ const DetailSheet = () => {
 
   useEffect(() => {
     setAppState({ loading: true });
-    const apiUrl = backendURL.value + "/api/1";
+    const apiUrl = backendURL.value + "/api/1/";
     fetch(apiUrl)
       .then((data) => data.json())
       .then((data) => {

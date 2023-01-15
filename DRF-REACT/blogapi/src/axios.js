@@ -7,10 +7,17 @@ const apiURL = backendURL.value + "/api";
 const axiosInstance = axios.create({
   baseURL: apiURL,
   timeout: 5000,
+  // headers: {
+  //   Authorization: Cookies.get("access")
+  //   ? "JWT " + Cookies.get("access")
+  //   : null,
+  //   "Content-Type": "application/json",
+  //   accept: "application/json",
+  // },
   headers: {
-    Authorization: Cookies.get("access")
-      ? "JWT " + Cookies.get("access")
-      : null,
+    Authorization: Cookies.get("token")
+    ? "Bearer " + Cookies.get("token")
+    : null,
     "Content-Type": "application/json",
     accept: "application/json",
   },

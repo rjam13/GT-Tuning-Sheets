@@ -104,6 +104,22 @@ class User(AbstractBaseUser, PermissionsMixin, TrackingModel):
 
     @property
     def token(self):
+        # 'exp' specifies how long token is valid for
         token = jwt.encode(payload={"username": self.username, 'email': self.email, 'exp': datetime.utcnow(
         ) + timedelta(hours=24)}, key=settings.SECRET_KEY, algorithm="HS256")
         return token
+
+
+# Needs to be able to delete tokens every so often
+# method:
+# https://stackoverflow.com/questions/70751341/how-to-delete-a-django-model-object-automatically-after-24-hrs
+class BlackListedToken(models.Model):
+    token = models.CharField(max_length=500)
+    user = models.ForeignKey(
+        User, related_name="token_user", on_delete=models.CASCADE)
+    timestamp = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        unique_together = ("token", "user")
+
+

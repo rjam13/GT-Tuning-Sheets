@@ -19,7 +19,7 @@ const Posts = () => {
   // fetches data from Django backend
   useEffect(() => {
     setAppState({ loading: true });
-    const apiUrl = backendURL.value + "/api";
+    const apiUrl = backendURL.value + "/api/";
     fetch(apiUrl, {
       method: "GET",
       headers: new Headers({

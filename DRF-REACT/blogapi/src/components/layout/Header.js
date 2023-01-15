@@ -9,11 +9,15 @@ import StyledNavLink from "../common/StyledNavLink";
 import HorizontalDivider from "../design/HorizontalDivider";
 import { primaryRoutes as routes } from "../../App";
 import ProfilePopover from "./ProfilePopover";
+import Cookies from "js-cookie";
 
 // const theme = createTheme();
 
 const Header = () => {
   // const classes = useStyles();
+  const username = Cookies.get("username");
+  console.log(username);
+
   return (
     <React.Fragment>
       <CssBaseline />
@@ -40,7 +44,7 @@ const Header = () => {
             className="header-profile"
             sx={{ position: "absolute", right: "24px", top: "24px" }}
           >
-            <ProfilePopover />
+            <ProfilePopover username={username} />
           </Box>
 
           <Box
